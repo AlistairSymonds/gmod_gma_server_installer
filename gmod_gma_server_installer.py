@@ -7,6 +7,7 @@ def main():
     parser = ap.ArgumentParser()
     parser.add_argument("--gmod_dir", required=True)
     parser.add_argument("--gma_dir", required=True)
+    parser.add_argument("--dry_run", action='store_true')
 
     args = parser.parse_args()
 
@@ -39,7 +40,8 @@ def main():
         gmad_cmd[3] = str(p.absolute())
         gmad_cmd[5] = str((gmod_path / 'garrysmod').absolute())
         print(gmad_cmd)
-        subprocess.run(gmad_cmd, capture_output=True)
+        if not args.dry_run:
+            subprocess.run(gmad_cmd, capture_output=True)
 
 if __name__== "__main__":
     main()
